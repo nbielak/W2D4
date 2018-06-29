@@ -15,17 +15,22 @@ def okay_two_sum?(array, target_value)
   
 end
 
-def okay_two_sum?(array, target_value)
-  max = array.shift
-  so_far = max
+def two_sum?(array, target_value)
+  hash = Hash.new(false)
   
   array.each do |el|
-    max = (target_value - el > target_value - max + el ) ? el : max + el
-    so_far = (so_far > max) ? so_far : max
+    hash[el] = true
   end
   
-  so_far
+  array.each_with_index do |el, idx|
+    target = target_value - el
+    if hash.has_key?(target)
+      return true unless array.index(el) == idx
+    end
+  end
+  
+  false
 end
 
 arr = [0, 1, 5, 7]
-p bad_two_sum?(arr, 10)
+p two_sum?(arr, 12)
